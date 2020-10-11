@@ -1,6 +1,7 @@
 // Access notes data from JSON file
-const notes = require('./db/db.json');
+const { notes } = require('./db/db.json');
 console.log(notes);
+console.log(notes.length);
 
 // Packages variables
 const express = require('express');
