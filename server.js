@@ -22,17 +22,28 @@ app.use(express.static('public'));
 
 // Helper functions
 
-// Function accepts the POST route's req.body value and the array where we want to add the data
-function createNewNote (body, notesArray) {
-    const note = body;
-    notesArray.push(note);
-    // Add new note to JSON file
-    fs.writeFileSync(
-        path.join(__dirname, './db/db.json'),
-        JSON.stringify({notes: notesArray}, null, 2)
-    );
-    return note;
-};
+    // Function accepts the POST route's req.body value and the array where we want to add the data
+    function createNewNote (body, notesArray) {
+        const note = body;
+        notesArray.push(note);
+        // Add new note to JSON file
+        fs.writeFileSync(
+            path.join(__dirname, './db/db.json'),
+            JSON.stringify({notes: notesArray}, null, 2)
+        );
+        return note;
+    };
+
+    // Function to validate user input
+    function validateNote(note) {
+        if(!note.title || typeof note.title !== 'string') {
+            return false;
+        }
+        if (!note.text || typeof note.text !== 'string') {
+            return false
+        }
+        return true;
+    };
 
 // API GET Routes
 
@@ -48,10 +59,17 @@ function createNewNote (body, notesArray) {
         // Set id for note
         req.body.id = notes.length.toString();
 
+        // Validate user input
+        if(!validateNote(req.body)) {
+            req.status(400).send('Your note is not properly formatted');
+            
+        } else {
+
         // Call function that creates new note
         const newNote = createNewNote(req.body, notes);
 
         res.json(newNote);
+        }
     });
 
     // // Allow user to create new note and add to notes array
