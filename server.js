@@ -62,7 +62,7 @@ app.use(express.static('public'));
         // Validate user input
         if(!validateNote(req.body)) {
             req.status(400).send('Your note is not properly formatted');
-            
+
         } else {
 
         // Call function that creates new note
@@ -72,32 +72,15 @@ app.use(express.static('public'));
         }
     });
 
-    // // Allow user to create new note and add to notes array
-    // app.post("/api/notes", (req, res) => {
-    //     // Variable for new created note
-    //     let createdNote = req.body;
-    //     // Add new created note to notes array
-    //     notes.push(createdNote);
-    //     // Stringify
-    //     let updatedNotes = JSON.stringify(notes);
-    //     // Update JSON file
-    //     fs.writeFile("./db/db.json", updatedNotes, function(err) {
-    //         if (err) {
-    //             return console.log(err);
-    //         }
-    //     })
-    //     res.json(createdNote);
-    // });
-
 // HTML Routes
 
     // Return the notes.html file
-    app.get("/notes", function (req, res) {
-        res.sendFile(path.join(__dirname), "./public/notes.html");
+    app.get("/notes", (req, res) => {
+        res.sendFile(path.join(__dirname, "./public/notes.html"));
     });
 
     // Return index.html file
-    app.get("*", function(req, res) {
+    app.get("*", (req, res) => {
         res.sendFile(path.join(__dirname, "./public/index.html"));
     });
 
