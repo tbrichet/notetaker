@@ -1,7 +1,8 @@
 // Access notes data from JSON file
 const { notes } = require('./db/db.json');
-console.log(notes);
-console.log(notes.length);
+//console.log(notes);
+//console.log(notes.length);
+
 
 // Packages variables
 const express = require('express');
@@ -57,7 +58,8 @@ app.use(express.static('public'));
     // Allow user to create new note and add to notes array
     app.post("/api/notes", (req, res) => {
         // Set id for note
-        req.body.id = notes.length.toString();
+        let setId = notes.length +1;
+        req.body.id = setId.toString();
 
         // Validate user input
         if(!validateNote(req.body)) {
@@ -95,13 +97,21 @@ app.use(express.static('public'));
     // Allow user to delete notes
     app.delete("/api/notes/:id", (req, res) => {
         // Splice array at specific id, remove 1 item
-        let noteToDelete = req.params.id;
-        let updatedNotes = notes.splice(noteToDelete, 1);
+        let noteToDelete = req.params.id -1;
+
+        //let updatedNotes = notes.splice(noteToDelete, 1);
+        notes.splice(noteToDelete, 1);
+
+        // Update IDs for existing notes
+        for (i=0; i < notes.length; i++) {
+            let newIdValue = i+1;
+            notes[i].id = newIdValue;
+        }
 
         // Update JSON file
         fs.writeFileSync(
             path.join(__dirname, './db/db.json'),
-            JSON.stringify({notes: updatedNotes}, null, 2)
+            JSON.stringify({notes}, null, 2)
         );
 
         res.send('Note Deleted');
