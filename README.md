@@ -34,6 +34,6 @@ For a small business owner (user) to be able to write and save notes in order to
 * Remaining code created with <3 by Tara Brichetto <br>
 
 ## Links
-GitHub Repository | https://github.com/tbrichet/notetaker
+GitHub Repository | https://github.com/tbrichet/notetaker <br>
 Live URL (Heroku) | https://tbrichetnotetaker.herokuapp.com/
 
