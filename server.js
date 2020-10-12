@@ -84,6 +84,29 @@ app.use(express.static('public'));
         res.sendFile(path.join(__dirname, "./public/index.html"));
     });
 
+// DELETE Routes
+
+    // Identify note by ID
+    app.get("/api/notes/:id", (req, res) => {
+        let specificNote = notes[req.params.id];
+        res.json(specificNote);
+    })
+
+    // Allow user to delete notes
+    app.delete("/api/notes/:id", (req, res) => {
+        // Splice array at specific id, remove 1 item
+        let noteToDelete = req.params.id;
+        let updatedNotes = notes.splice(noteToDelete, 1);
+
+        // Update JSON file
+        fs.writeFileSync(
+            path.join(__dirname, './db/db.json'),
+            JSON.stringify({notes: updatedNotes}, null, 2)
+        );
+
+        res.send('Note Deleted');
+    });
+
 
 
 //Tell the server to listen to requests

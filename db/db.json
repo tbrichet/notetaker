@@ -1,34 +1,9 @@
 {
   "notes": [
     {
-      "title": "Test Title",
-      "text": "Test text",
-      "id": "test_id"
-    },
-    {
-      "title": "Hello",
-      "text": "Hello",
-      "id": "1"
-    },
-    {
-      "title": "Hello",
-      "text": "Hello",
+      "title": "Sample2",
+      "text": "Sample2",
       "id": "2"
-    },
-    {
-      "title": "Hello",
-      "text": "Hello",
-      "id": "3"
-    },
-    {
-      "title": "Hello",
-      "text": "Hello",
-      "id": "4"
-    },
-    {
-      "title": "Hello",
-      "text": "Hello",
-      "id": "5"
     }
   ]
 }
